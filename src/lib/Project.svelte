@@ -3,13 +3,16 @@
     export let hLevel = 2;
 </script>
 
+<!-- <Project data={project} /> -->
+
 <article>
     <svelte:element this={"h" + hLevel}>{data.title}</svelte:element>
     <img src={data.image} alt="" />
     <p>{data.description}</p>
 </article>
 
-<style>
+
+<!-- <style>
     .projects {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
@@ -32,4 +35,4 @@
     width: 100%;
     height: auto;
     }
-</style>
+</style> -->

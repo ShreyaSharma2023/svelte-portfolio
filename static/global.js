@@ -13,9 +13,9 @@ function $$ (selector, context = document) {
 // Step 1: Define the pages with URLs and titles
 let pages = [
     {url: ".", title: "Home"},
-	{url: "6.C85/A2_report.html", title: "6.C85-A2"},
+/* 	{url: "6.C85/A2_report.html", title: "6.C85-A2"},
     {url: "6.C85/A3_report.html", title: "6.C85-A3"},
-    {url: "6.C85/A4_report.html", title: "6.C85-A4"},
+    {url: "6.C85/A4_report.html", title: "6.C85-A4"}, */
     {url: "projects", title: "Projects"},
     {url: "contact", title: "Contact"},
 	{url: "resume", title: "Resume"},

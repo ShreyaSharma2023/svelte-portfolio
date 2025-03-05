@@ -3,7 +3,7 @@
 </svelte:head>
 
 <h1>Contact</h1>
-<link rel="stylesheet" href="../style.css">
+<!-- <link rel="stylesheet" href="../style.css"> -->
 
 <form action="mailto:shreya22@mit.edu" method="POST" enctype="text/plain" class="contact-form">
     <div class="form-row">

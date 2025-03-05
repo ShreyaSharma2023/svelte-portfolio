@@ -5,7 +5,7 @@
 <header>
     <h1>Shreya Sharma</h1>
     <p>3rd Year Graduate Student in Aeronautics and Astronautics</p>
-    <link rel="stylesheet" href="../style.css">
+    <!-- <link rel="stylesheet" href="../style.css"> -->
     
 </header>
 
