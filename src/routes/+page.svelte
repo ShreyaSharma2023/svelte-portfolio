@@ -1,3 +1,7 @@
+<script>
+  import Project from "$lib/Project.svelte";
+</script>
+
 <svelte:head>
   <title>Home Page</title>
 </svelte:head>
@@ -9,3 +13,10 @@
     of the aviation sector</p>
 <img src = "images/Shreya S. MIT AeroAstro_100224_07.jpg" alt = "Here's a picture of me">
 <link rel = "stylesheet" href = "style.css">
+
+<h2>Latest Projects</h2>
+<div class="projects">
+{#each projects.slice(0, 3) as p}
+<Project data={p} hLevel="3" />
+{/each}
+</div>
