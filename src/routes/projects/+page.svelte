@@ -1,16 +1,26 @@
+<script>
+    import projects from "$lib/projects.json";
+</script>
+  
 <svelte:head>
   <title>My Projects</title>
 </svelte:head>
 
 <h1>Projects</h1> 
-    
+  
 <div class="projects">
+    {#each projects as p}
     <article>
-        <h2>Lorem ipsum dolor sit.</h2>
-        <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
-        <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Consectetur beatae quos blanditiis soluta hic minima ipsa nihil veritatis praesentium nesciunt. Modi illum iste blanditiis vel aliquid. Quas sunt maiores quos!</p>
+      <h2>Lorem ipsum dolor sit.</h2>
+      <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="" />
+      <p>
+        Lorem ipsum dolor sit amet consectetur adipisicing elit. Magnam dolor quos,
+        quod assumenda explicabo odio, nobis ipsa laudantium quas eum veritatis
+        ullam sint porro minima modi molestias doloribus cumque odit.
+      </p>
     </article>
-    <article>
+    {/each}
+<!--     <article>
         <h2>Hic deserunt quam quis!</h2>
         <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
         <p>Cum numquam odit quos, nesciunt veniam qui eius architecto tenetur incidunt, neque laboriosam nostrum provident cupiditate explicabo. Illum cum quidem tempora quae vel eos aut accusamus, et, rerum at necessitatibus.</p>
@@ -64,7 +74,7 @@
         <h2>Et est pariatur totam?</h2>
         <img src="https://vis-society.github.io/labs/2/images/empty.svg" alt="">
         <p>Deserunt veritatis vitae provident, nesciunt dolore earum sequi, quasi iusto ipsa, cum cumque blanditiis minus unde natus vel ut dolor eum quidem neque autem recusandae aliquid omnis. Molestias, doloribus quisquam.</p>
-    </article>
+    </article> -->
 </div>
 
 <link rel="stylesheet" href="../style.css">

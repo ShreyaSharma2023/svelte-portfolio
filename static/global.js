@@ -16,9 +16,9 @@ let pages = [
 	{url: "6.C85/A2_report.html", title: "6.C85-A2"},
     {url: "6.C85/A3_report.html", title: "6.C85-A3"},
     {url: "6.C85/A4_report.html", title: "6.C85-A4"},
-    {url: "projects/", title: "Projects"},
-    {url: "contact/", title: "Contact"},
-	{url: "resume/", title: "Resume"},
+    {url: "projects", title: "Projects"},
+    {url: "contact", title: "Contact"},
+	{url: "resume", title: "Resume"},
 	{url: "https://github.com/ShreyaSharma2023", title: "Github"},
 ];
 
