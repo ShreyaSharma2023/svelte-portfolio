@@ -1,0 +1,235 @@
+:root {
+  --color-accent: oklch(65% 50% 0); /* Adjust to your preferred accent color */
+}
+
+html {
+  color-scheme: light dark;
+  accent-color: var(--color-accent); /* Apply the accent color to all elements */
+}
+
+/* Ensure form controls inherit the font of the rest of the page */
+input, textarea, button {
+  font: inherit;
+}
+
+body {
+  background-color: Canvas; /* Matches OS background */
+  color: CanvasText; /* Matches OS text color */
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  max-width: 800px;
+  margin: auto;
+  padding: 20px;
+  /* background-color: #f9f9f9; */
+  /* color: #333; */
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+  /* Make the navigation a flex container */
+nav {
+  --border-color: oklch(50% 10% 200 / 40%);
+  display: flex;
+  justify-content: space-evenly; /* Evenly distribute links */
+  /* background-color: #f8f9fa; Light gray background */
+  background-color: color-mix(in oklch, var(--color-accent), canvas 85%);
+  padding: 0.5em;
+  margin-bottom: 1em; /* Separate from content below */
+  border-bottom: 1px solid oklch(80% 3% 200); /* Subtle gray bottom border */
+}
+
+/* Style the navigation links */
+nav a {
+  flex: 1; /* Each link takes equal space */
+  text-align: center; /* Center text */
+  text-decoration: none; /* Remove underline */
+  color: CanvasText; /* Use parent’s text color */
+  padding: 0.5em; /* Add spacing */
+  border-bottom-color: var(--border-color);
+}
+
+/* Style the current page link */
+nav a.current {
+  color: CanvasText;
+  border-bottom: 4px solid var(--color-accent); /* Thicker underline */
+  padding-bottom: 0.1em; /* Reduce padding to counter border height */
+  border-bottom-color: var(--border-color);
+}
+
+/* Hover effect for navigation links */
+nav a:hover {
+  border-bottom: 0.4em solid var(--color-accent); /* Accent color border on hover */
+  padding-bottom: 0.1em; /* Reduce padding to match the border height */
+  background-color: oklch(var(--color-accent) 95% 5%); /* Light version of accent color */
+  text-decoration: none; /* Remove underline */
+}
+   
+.contact-form {
+  display: flex;
+  flex-direction: column; /* Stack items vertically */
+  gap: 1em; /* Space between form controls */
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 2em;
+  background-color: Canvas;
+  border-radius: 8px;
+}
+
+.form-row {
+  display: flex;
+  flex-direction: column;
+}
+
+label {
+  margin-bottom: 0.5em;
+  font-weight: bold;
+  font-size: 1em;
+}
+
+input, textarea {
+  padding: 0.8em;
+  font-size: 1em;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+}
+
+textarea {
+  resize: vertical; /* Allow resizing vertically */
+}
+
+button.submit-btn {
+  background-color: #007bff;
+  color: CanvasText;
+  padding: 1em;
+  font-size: 1em;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  transition: background 0.3s ease;
+}
+
+button.submit-btn:hover {
+  background-color: #0056b3;
+}
+
+.projects {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(15em, 1fr));
+  gap: 1em;
+  padding: 1em;
+}
+
+.projects article {
+  display: grid;
+  grid-template-rows: subgrid;
+  grid-row: span 3; /* Each article spans 3 rows */
+  align-items: start; /* Ensures proper alignment */
+}
+
+.projects h2 {
+  margin: 0; /* Removes extra spacing around headings */
+}
+
+.projects img {
+  width: 100%;
+  height: auto;
+}
+
+/* Make h1 significantly larger */
+h1 {
+  font-size: 400%; /* 4x the body text size */
+  font-weight: bold;
+  line-height: 1.1;
+  text-wrap: balance;
+}
+
+/* Set good defaults for all headings */
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.1; /* Reduce space between lines */
+  text-wrap: balance; /* Prevent uneven wrapping */
+}
+
+/* Section styling */
+section {
+  margin-bottom: 20px;
+  padding: 15px;
+  background: Canvas;
+  border-radius: 10px;
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.1);
+  color: CanvasText;
+}
+
+/* Make dates stand out */
+time {
+  font-style: italic;
+  color: #666;
+}
+
+/* Links */
+a {
+  color: #007bff;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* List styling */
+ul {
+  list-style-type: square;
+  padding-left: 20px;
+}
+
+/* Flexbox for work experience */
+.experience {
+  display: flex;
+  justify-content: space-between;
+}
+
+.experience h3 {
+  flex-grow: 1;
+}
+
+/* Resume Download Button */
+.resume-btn {
+  display: inline-block;
+  padding: 12px 20px;
+  background-color: #007bff;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2em;
+  font-weight: bold;
+  border-radius: 8px;
+  transition: background 0.3s ease, transform 0.2s;
+  text-align: center;
+}
+
+/* Hover & Active Effects */
+.resume-btn:hover {
+  background-color: #0056b3;
+}
+
+.resume-btn:active {
+  transform: scale(0.95);
+}
+
+.color-scheme {
+  position: absolute; /* Take it out of the normal flow */
+  top: 1rem; /* Offset from the top */
+  right: 1rem; /* Offset from the right */
+  display: inline-flex; /* Keep the label and select dropdown on the same line */
+  align-items: center; /* Align text and dropdown vertically */
+  gap: 4px; /* Space between the label text and the dropdown */
+  font-size: 80%; /* Reduce font size slightly */
+  font-family: inherit; /* Ensure it matches the rest of the page */
+}
+
+select {
+  font-family: inherit; /* Ensures consistent font with the page */
+  padding: 4px; /* Add some padding for better usability */
+}
