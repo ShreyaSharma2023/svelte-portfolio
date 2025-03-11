@@ -24,7 +24,7 @@ let pages = [
 
 // Step 2: Check if we are on the home page
 // const ARE_WE_HOME = document.documentElement.classList.contains("home");
-
+/* 
 // Step 3: Create the <nav> element and add it to the page
 let nav = document.createElement("nav");
 document.body.prepend(nav);
@@ -55,7 +55,7 @@ for (let p of pages) {
    // Append the link to the <nav>
    nav.append(a);
 }
-
+ */
 document.body.insertAdjacentHTML("afterbegin", `
     <label class="color-scheme">
         Theme:
