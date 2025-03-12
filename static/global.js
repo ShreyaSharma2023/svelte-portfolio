@@ -56,16 +56,16 @@ for (let p of pages) {
    nav.append(a);
 }
  */
-document.body.insertAdjacentHTML("afterbegin", `
-    <label class="color-scheme">
-        Theme:
-        <select id="theme-switcher">
-            <option value="light dark">Automatic</option>
-            <option value="light">Light</option>
-            <option value="dark">Dark</option>
-        </select>
-    </label>
-`);
+// document.body.insertAdjacentHTML("afterbegin", `
+//     <label class="color-scheme">
+//         Theme:
+//         <select id="theme-switcher">
+//             <option value="light dark">Automatic</option>
+//             <option value="light">Light</option>
+//             <option value="dark">Dark</option>
+//         </select>
+//     </label>
+// `);
 
 const themeSwitcher = document.getElementById("theme-switcher");
 
@@ -90,7 +90,7 @@ themeSwitcher.addEventListener("change", function () {
 // Get the <select> element
 let select = document.querySelector("select");
 
-// Function to set the color scheme and store it in localStorage
+/* // Function to set the color scheme and store it in localStorage
 function setColorScheme(colorScheme) {
     document.documentElement.style.setProperty("color-scheme", colorScheme);
     localStorage.colorScheme = colorScheme;
@@ -106,4 +106,4 @@ if (localStorage.colorScheme) {
 select.addEventListener("input", function (event) {
     setColorScheme(event.target.value);
 });
-
+ */

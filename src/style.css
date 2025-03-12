@@ -2,10 +2,9 @@
   --color-accent: oklch(65% 50% 0); /* Adjust to your preferred accent color */
 }
 
-html {
+/* html {
   color-scheme: light dark;
-  accent-color: var(--color-accent); /* Apply the accent color to all elements */
-}
+  accent-color: var(--color-accent); /* Apply the accent color to all elements */  
 
 /* Ensure form controls inherit the font of the rest of the page */
 input, textarea, button {
@@ -180,16 +179,7 @@ ul {
   transform: scale(0.95);
 }
 
-.color-scheme {
-  position: absolute; /* Take it out of the normal flow */
-  top: 1rem; /* Offset from the top */
-  right: 1rem; /* Offset from the right */
-  display: inline-flex; /* Keep the label and select dropdown on the same line */
-  align-items: center; /* Align text and dropdown vertically */
-  gap: 4px; /* Space between the label text and the dropdown */
-  font-size: 80%; /* Reduce font size slightly */
-  font-family: inherit; /* Ensure it matches the rest of the page */
-}
+
 
 select {
   font-family: inherit; /* Ensures consistent font with the page */

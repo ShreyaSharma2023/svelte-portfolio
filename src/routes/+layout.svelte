@@ -1,5 +1,9 @@
-
 <script>
+let root = globalThis?.document?.documentElement;
+let localStorage = globalThis.localStorage ?? {};
+let colorScheme = localStorage.colorScheme 
+$: root?.style.setProperty("color-scheme", colorScheme);
+$: localStorage.colorScheme = colorScheme;
 import { page } from "$app/stores";
 import "../style.css";
 let pages = [
@@ -22,6 +26,15 @@ let pages = [
 </a>
 {/each}
 </nav>
+
+<label class="color-scheme">
+        Theme:
+        <select bind:value={ colorScheme }>
+            <option value="light dark">Automatic</option>
+            <option value="light">Light</option>
+            <option value="dark">Dark</option>
+        </select>
+</label>
 
 <style>
   /* Make the navigation a flex container */
@@ -61,5 +74,22 @@ nav a:hover {
   background-color: oklch(var(--color-accent) 95% 5%); /* Light version of accent color */
   text-decoration: none; /* Remove underline */
 }
+
+html {
+  color-scheme: light dark;
+  accent-color: var(--color-accent); /* Apply the accent color to all elements */
+} 
+
+.color-scheme {
+  position: absolute; /* Take it out of the normal flow */
+  top: 1rem; /* Offset from the top */
+  right: 1rem; /* Offset from the right */
+  display: inline-flex; /* Keep the label and select dropdown on the same line */
+  align-items: center; /* Align text and dropdown vertically */
+  gap: 4px; /* Space between the label text and the dropdown */
+  font-size: 80%; /* Reduce font size slightly */
+  font-family: inherit; /* Ensure it matches the rest of the page */
+}
+
 </style>
 <slot />
