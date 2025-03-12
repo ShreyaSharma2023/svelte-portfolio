@@ -36,6 +36,32 @@ let pages = [
         </select>
 </label>
 
+<slot />
+
+{#await fetch("https://api.github.com/users/zhengsophia")}
+  <p>Loading...</p>
+{:then response}
+  {#await response.json()}
+    <p>Decoding...</p>
+  {:then data}
+    <section>
+      <h2>My GitHub Stats</h2>
+      <dl>
+        <dt>Followers:</dt>
+        <dd>{data.followers}</dd>
+        <dt>Following:</dt>
+        <dd>{data.following}</dd>
+        <dt>Public Repositories:</dt>
+        <dd>{data.public_repos}</dd>
+      </dl>
+    </section>
+  {:catch error}
+    <p class="error">Something went wrong: {error.message}</p>
+  {/await}
+{:catch error}
+  <p class="error">Something went wrong: {error.message}</p>
+{/await}
+
 <style>
   /* Make the navigation a flex container */
 nav {
@@ -91,5 +117,21 @@ html {
   font-family: inherit; /* Ensure it matches the rest of the page */
 }
 
+dl {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four equal-sized columns */
+  gap: 1rem; /* Space between items */
+  text-align: center;
+}
+
+dt {
+  grid-row: 1; /* Place all <dt> elements in the first row */
+  font-weight: bold;
+}
+
+dd {
+  grid-row: 2; /* Place all <dd> elements in the second row */
+  margin: 0; /* Remove default margin for better alignment */
+}
+
 </style>
-<slot />
