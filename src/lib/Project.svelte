@@ -8,7 +8,10 @@
 <article>
     <svelte:element this={"h" + hLevel}>{data.title}</svelte:element>
     <img src={data.image} alt="" />
-    <p>{data.description}</p>
+    <div>
+        <p>{data.description}</p>
+        <p style="font-family: 'Libre Baskerville', Georgia, serif;">c. {data.year}</p>
+    </div>
 </article>
 
 
