@@ -25,16 +25,18 @@ let pieData;
         });
     }
 
+let query = "";
+let selectedYearIndex = -1;
+let selectedYear;
+$: selectedYear = selectedYearIndex > -1 ? pieData[selectedYearIndex].label : null;
+$: filteredByYear = filteredProjects.filter(project => {
+        if (selectedYear) {
+            return project.year === selectedYear;
+        }
 
-// Define arcData and arcs outside the reactive block
-let arcData;
-let arcs;
+        return true;
+    });
 
-$: {
-	// Reactively calculate arcData and arcs the same way we did before with sliceGenerator and arcGenerator
-	arcData = TODO: FILL IN
-	arcs = TODO: FILL IN
-}
 
 
 
@@ -45,11 +47,13 @@ $: {
 </svelte:head>
 
 <h1> {projects.length} Projects</h1>
-<Pie data={pieData} />
+
+<Pie data={pieData} bind:selectedIndex={selectedYearIndex} />
+
 <input type="search" bind:value={query}
        aria-label="Search projects" placeholder="🔍 Search projects…" />
 <div class="projects">
-    {#each filteredProjects as p}
+    {#each filteredByYear as p}
         <Project data={p} />
     {/each}
 </div>
