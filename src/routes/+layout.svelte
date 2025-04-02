@@ -14,6 +14,19 @@ let pages = [
   { url: "./meta", title: "Meta"},
   { url: "https://github.com/ShreyaSharma2023", title: "Github"},
 ];
+import { onMount } from "svelte";
+let githubData = null;
+let loading = true;
+let error = null;
+onMount(async () => {
+	try {
+		const response = await fetch("https://api.github.com/users/ShreyaSharma2023");
+		githubData = await response.json();
+	} catch (err) {
+		error = err;
+	}
+	loading = false;
+});
 </script>
 
 <nav>
@@ -39,29 +52,23 @@ let pages = [
 
 <slot />
 
-{#await fetch("https://api.github.com/users/zhengsophia")}
-  <p>Loading...</p>
-{:then response}
-  {#await response.json()}
-    <p>Decoding...</p>
-  {:then data}
-    <section>
-      <h2>My GitHub Stats</h2>
-      <dl>
-        <dt>Followers:</dt>
-        <dd>{data.followers}</dd>
-        <dt>Following:</dt>
-        <dd>{data.following}</dd>
-        <dt>Public Repositories:</dt>
-        <dd>{data.public_repos}</dd>
-      </dl>
-    </section>
-  {:catch error}
+{#if loading}
+    <p>Loading...</p>
+{:else if error}
     <p class="error">Something went wrong: {error.message}</p>
-  {/await}
-{:catch error}
-  <p class="error">Something went wrong: {error.message}</p>
-{/await}
+{:else}
+    <section>
+        <h2>My GitHub Stats</h2>
+        <dl>
+            <dt>Followers</dt>
+            <dd>{githubData.followers}</dd>
+            <dt>Following</dt>
+            <dd>{githubData.following}</dd>
+            <dt>Public Repositories</dt>
+            <dd>{githubData.public_repos}</dd>
+        </dl>
+    </section>
+{/if}
 
 <style>
   /* Make the navigation a flex container */
