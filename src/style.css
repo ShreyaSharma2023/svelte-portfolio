@@ -179,9 +179,24 @@ ul {
   transform: scale(0.95);
 }
 
-
-
 select {
   font-family: inherit; /* Ensures consistent font with the page */
   padding: 4px; /* Add some padding for better usability */
+}
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* Four equal-sized columns */
+  gap: 1rem; /* Space between items */
+  text-align: center;
+}
+
+.stats dt {
+  grid-row: 1; /* Place all <dt> elements in the first row */
+  font-weight: bold;
+}
+
+.stats dd {
+  grid-row: 2; /* Place all <dd> elements in the second row */
+  margin: 0; /* Remove default margin for better alignment */
 }
