@@ -205,3 +205,68 @@ select {
 	stroke-opacity: .2;
 }
 
+dl.info {
+  display: grid;
+  grid-template-columns: auto 1fr; /* Labels take auto width, values fill the rest */
+  gap: 0.5rem 1rem; /* Row gap of 0.5rem, column gap of 1rem */
+  text-align: left;
+  transition-duration: 500ms;
+	transition-property: opacity, visibility;
+	&[hidden]:not(:hover, :focus-within) {
+		opacity: 0;
+		visibility: hidden;
+	}
+}
+
+dl.info dt {
+  font-weight: normal; /* Make labels less prominent */
+  color: #666; /* Lighter text color */
+}
+
+dl.info dd {
+  font-weight: bold; /* Make values stand out */
+  margin: 0; /* Remove default margin */
+}
+
+circle {
+	transition: 200ms;
+	&:hover {
+		transform: scale(1.5);
+	}
+  transform-origin: center;
+  transform-box: fill-box;
+}
+
+:root {
+  --tooltip-bg: rgba(255, 255, 255, 0.8);
+  --tooltip-text: black;
+  --tooltip-shadow: rgba(0, 0, 0, 0.15);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --tooltip-bg: rgba(30, 30, 30, 0.8);
+    --tooltip-text: white;
+    --tooltip-shadow: rgba(255, 255, 255, 0.15);
+  }
+}
+
+.info_tooltip {
+  position: fixed;
+  top: 1em;
+  left: 1em;
+  background-color: var(--tooltip-bg);
+  color: var(--tooltip-text);
+  
+  padding: 0.75rem 1rem;
+  border-radius: 8px;
+  box-shadow: 0px 4px 12px var(--tooltip-shadow);
+  
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+
+  font-size: 0.9rem;
+  max-width: 300px;
+  z-index: 9999;
+}
+
