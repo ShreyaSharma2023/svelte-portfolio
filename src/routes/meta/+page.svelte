@@ -1,4 +1,5 @@
 <script>
+import Bar from '$lib/Bar.svelte';
 import * as d3 from "d3";
 import { onMount } from "svelte";
 import {
@@ -106,6 +107,14 @@ async function dotInteraction (index, evt) {
 }
 }
 let clickedCommits = [];
+$: allTypes = Array.from(new Set(data.map(d => d.type)));
+$: selectedLines = (clickedCommits.length > 0 ? clickedCommits : commits).flatMap(d => d.lines);
+$: selectedCounts = d3.rollup(
+    selectedLines,
+    v => v.length,
+    d => d.type
+);
+$: languageBreakdown = allTypes.map(type => [type, selectedCounts.get(type) || 0]);
 </script>
 
 <svelte:head>
@@ -142,7 +151,7 @@ let clickedCommits = [];
 <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
 </svg>
 
-
+<Bar data={languageBreakdown} width={width} />
 
 <dl class="info_tooltip" bind:this={commitTooltip} hidden={hoveredIndex === -1} style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px">
 	<dt>Commit</dt>
