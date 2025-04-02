@@ -200,3 +200,8 @@ select {
   grid-row: 2; /* Place all <dd> elements in the second row */
   margin: 0; /* Remove default margin for better alignment */
 }
+
+.gridlines {
+	stroke-opacity: .2;
+}
+

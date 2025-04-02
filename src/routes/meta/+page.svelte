@@ -1,6 +1,26 @@
 <script>
 import * as d3 from "d3";
 import { onMount } from "svelte";
+let width = 1000, height = 600;
+let margin = {top: 10, right: 10, bottom: 30, left: 20};
+let usableArea = {
+	top: margin.top,
+	right: width - margin.right,
+	bottom: height - margin.bottom,
+	left: margin.left
+};
+usableArea.width = usableArea.right - usableArea.left;
+usableArea.height = usableArea.bottom - usableArea.top;
+let xAxis, yAxis, yAxisGridlines;
+$: {
+	d3.select(xAxis).call(d3.axisBottom(xScale));
+  d3.select(yAxis).call(d3.axisLeft(yScale).tickFormat(d => String(d % 24).padStart(2, "0") + ":00"));
+  d3.select(yAxisGridlines).call(
+		d3.axisLeft(yScale)
+		  .tickFormat("")
+		  .tickSize(-usableArea.width)
+	);
+}
 let data = [];
 let commits = [];
 let totalFiles = 0; // Variable to store total file count
@@ -38,6 +58,17 @@ commits = d3.groups(data, d => d.commit).map(([commit, lines]) => {
 });
 console.log(commits)
 });
+$: minDate = d3.min(commits.map(d => d.date));
+$: maxDate = d3.max(commits.map(d => d.date));
+$: maxDatePlusOne = new Date(maxDate);
+$: maxDatePlusOne.setDate(maxDatePlusOne.getDate() + 1);
+$: xScale = d3.scaleTime()
+              .domain([minDate, maxDatePlusOne])
+              .range([usableArea.left, usableArea.right])
+              .nice();
+$: yScale = d3.scaleLinear()
+              .domain([24, 0])
+              .range([usableArea.bottom, usableArea.top]);
 </script>
 
 <svelte:head>
@@ -46,6 +77,9 @@ console.log(commits)
 
 <h1>Meta</h1>
 <h2>Summary</h2>
+
+
+
 <dl class="stats">
 	<dt>Total <abbr title="Lines of code">LOC</abbr></dt>
 	<dd>{data.length}</dd>
@@ -54,6 +88,29 @@ console.log(commits)
   <dt>Total <abbr title="Files">Files</abbr></dt>
 	<dd>{totalFiles}</dd>
 </dl>
+<svg viewBox="0 0 {width} {height}">
+<g class="dots">
+  {#each commits as commit, index }
+	  <circle
+		  cx={ xScale(commit.datetime) }
+		  cy={ yScale(commit.hourFrac) }
+		  r="5"
+		  fill="steelblue"
+	  />
+  {/each}
+</g>
+<g class="gridlines" transform="translate({usableArea.left}, 0)" bind:this={yAxisGridlines} />
+<g transform="translate(0, {usableArea.bottom})" bind:this={xAxis} />
+<g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
+</svg>
+
+<style>
+	svg {
+		overflow: visible;
+	}
+</style>
+
+
 
 
 
