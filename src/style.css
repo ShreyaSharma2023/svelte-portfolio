@@ -270,3 +270,6 @@ circle {
   z-index: 9999;
 }
 
+.selected {
+  fill: var(--color-accent);
+}

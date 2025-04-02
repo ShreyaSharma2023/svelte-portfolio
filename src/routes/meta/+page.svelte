@@ -15,7 +15,6 @@ let usableArea = {
 	left: margin.left
 };
 let commitTooltip;
-<dl class="info_tooltip" bind:this={commitTooltip}>
 let tooltipPosition = {x: 0, y: 0};
 usableArea.width = usableArea.right - usableArea.left;
 usableArea.height = usableArea.bottom - usableArea.top;
@@ -79,7 +78,34 @@ $: yScale = d3.scaleLinear()
               .range([usableArea.bottom, usableArea.top]);
 let hoveredIndex = -1;
 $: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
-let hoveredDot = evt.target;
+async function dotInteraction (index, evt) {
+	let hoveredDot = evt.target;
+	if (evt.type === "mouseenter") {
+		hoveredIndex = index;
+		tooltipPosition = await computePosition(hoveredDot, commitTooltip, {
+			strategy: "fixed", // because we use position: fixed
+			middleware: [
+				offset(5), // spacing from tooltip to dot
+				autoPlacement() // see https://floating-ui.com/docs/autoplacement
+			],
+		});        }
+	else if (evt.type === "mouseleave") {
+		hoveredIndex = -1
+	}
+  else if (evt.type === "click") {
+    console.log(clickedCommits);
+	let commit = commits[index]
+	if (!clickedCommits.includes(commit)) {
+		// Add the commit to the clickedCommits array
+		clickedCommits = [...clickedCommits, commit];
+	}
+	else {
+			// Remove the commit from the array
+			clickedCommits = clickedCommits.filter(c => c !== commit);
+	}
+}
+}
+let clickedCommits = [];
 </script>
 
 <svelte:head>
@@ -100,6 +126,8 @@ let hoveredDot = evt.target;
 <g class="dots">
   {#each commits as commit, index }
 	  <circle
+    	class:selected={ clickedCommits.includes(commit) }
+    	on:click={ evt => dotInteraction(index, evt) }
     	on:mouseenter={evt => dotInteraction(index, evt)}
 	    on:mouseleave={evt => dotInteraction(index, evt)}
 		  cx={ xScale(commit.datetime) }
@@ -114,23 +142,9 @@ let hoveredDot = evt.target;
 <g transform="translate({usableArea.left}, 0)" bind:this={yAxis} />
 </svg>
 
-async function dotInteraction (index, evt) {
-	let hoveredDot = evt.target;
-	if (evt.type === "mouseenter") {
-		hoveredIndex = index;
-		tooltipPosition = await computePosition(hoveredDot, commitTooltip, {
-			strategy: "fixed", // because we use position: fixed
-			middleware: [
-				offset(5), // spacing from tooltip to dot
-				autoPlacement() // see https://floating-ui.com/docs/autoplacement
-			],
-		});        }
-	else if (evt.type === "mouseleave") {
-		hoveredIndex = -1
-	}
-}
 
-<dl class="info_tooltip" hidden={hoveredIndex === -1} style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px">
+
+<dl class="info_tooltip" bind:this={commitTooltip} hidden={hoveredIndex === -1} style="top: {tooltipPosition.y}px; left: {tooltipPosition.x}px">
 	<dt>Commit</dt>
 	<dd><a href="{ hoveredCommit.url }" target="_blank">{ hoveredCommit.id }</a></dd>
 	<dt>Date</dt>
