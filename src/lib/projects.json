@@ -1,5 +1,13 @@
 [
     {
+        "title": "Bikewatching",
+        "description": "An interactive Mapbox + D3 project to explore BlueBikes traffic patterns in Boston and Cambridge. Includes time filtering, isochrone visualizations, and dynamic data rendering.",
+        "year": "2025",
+        "image": "images/Bikewatching.png",
+        "url": ""
+      },
+
+    {
         "title": "Lorem ipsum dolor sit.",
         "year": "2025",
         "image": "https://vis-society.github.io/labs/2/images/empty.svg",

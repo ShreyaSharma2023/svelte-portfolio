@@ -116,6 +116,14 @@ $: selectedCounts = d3.rollup(
     d => d.type
 );
 $: languageBreakdown = allTypes.map(type => [type, selectedCounts.get(type) || 0]);
+
+let commitProgress = 100;
+// Time scale mapping datetime to percentage (0–100)
+$: timeScale = d3.scaleTime()
+	.domain([minDate, maxDatePlusOne])
+	.range([0, 100]);
+$: commitMaxTime = timeScale.invert(commitProgress);
+
 </script>
 
 <svelte:head>
@@ -132,6 +140,26 @@ $: languageBreakdown = allTypes.map(type => [type, selectedCounts.get(type) || 0
   <dt>Total <abbr title="Files">Files</abbr></dt>
 	<dd>{totalFiles}</dd>
 </dl>
+<div class="slider-container">
+	<div class="slider-controls">
+		<label for="commit-slider">Show commits until:</label>
+		<input
+			id="commit-slider"
+			class="slider"
+			type="range"
+			min="0"
+			max="100"
+			bind:value={commitProgress}
+		/>
+	</div>
+	<time>
+		{commitMaxTime.toLocaleString(undefined, {
+			dateStyle: "long",
+			timeStyle: "short"
+		})}
+	</time>
+</div>
+
 <svg viewBox="0 0 {width} {height}">
 <g class="dots">
   {#each commits as commit, index }
