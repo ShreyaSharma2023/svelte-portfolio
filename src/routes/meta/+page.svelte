@@ -168,7 +168,7 @@ $: commitMaxTime = timeScale.invert(commitProgress);
 
 <svg viewBox="0 0 {width} {height}">
 <g class="dots">
-  {#each commits as commit, index }
+  {#each filteredCommits as commit, index(commit.id) }
 	  <circle
     	class:selected={ clickedCommits.includes(commit) }
     	on:click={ evt => dotInteraction(index, evt) }
