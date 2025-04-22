@@ -22,7 +22,7 @@ usableArea.width = usableArea.right - usableArea.left;
 usableArea.height = usableArea.bottom - usableArea.top;
 let xAxis, yAxis, yAxisGridlines;
 $: {
-	d3.select(xAxis).call(d3.axisBottom(xScale));
+  d3.select(xAxis).call(d3.axisBottom(xScale));
   d3.select(yAxis).call(d3.axisLeft(yScale).tickFormat(d => String(d % 24).padStart(2, "0") + ":00"));
   d3.select(yAxisGridlines).call(
 		d3.axisLeft(yScale)
@@ -71,15 +71,21 @@ $: minDate = d3.min(commits.map(d => d.date));
 $: maxDate = d3.max(commits.map(d => d.date));
 $: maxDatePlusOne = new Date(maxDate);
 $: maxDatePlusOne.setDate(maxDatePlusOne.getDate() + 1);
-$: xScale = d3.scaleTime()
-              .domain([minDate, maxDatePlusOne])
-              .range([usableArea.left, usableArea.right])
-              .nice();
+
+$: filteredCommits = commits.filter(commit => commit.datetime <= commitMaxTime)
+$: filteredLines = data.filter(d => d.datetime <= commitMaxTime);
+
+$: xScale = d3
+    .scaleTime()
+    .domain(d3.extent(filteredCommits.map((d) => d.date)))
+    .range([usableArea.left, usableArea.right])
+    .nice();
 $: yScale = d3.scaleLinear()
               .domain([24, 0])
               .range([usableArea.bottom, usableArea.top]);
+
 let hoveredIndex = -1;
-$: hoveredCommit = commits[hoveredIndex] ?? hoveredCommit ?? {};
+$: hoveredCommit = filteredCommits[hoveredIndex] ?? hoveredCommit ?? {};
 async function dotInteraction (index, evt) {
 	let hoveredDot = evt.target;
 	if (evt.type === "mouseenter") {
@@ -96,7 +102,7 @@ async function dotInteraction (index, evt) {
 	}
   else if (evt.type === "click") {
     console.log(clickedCommits);
-	let commit = commits[index]
+	let commit = filteredCommits[index]
 	if (!clickedCommits.includes(commit)) {
 		// Add the commit to the clickedCommits array
 		clickedCommits = [...clickedCommits, commit];
@@ -109,7 +115,7 @@ async function dotInteraction (index, evt) {
 }
 let clickedCommits = [];
 $: allTypes = Array.from(new Set(data.map(d => d.type)));
-$: selectedLines = (clickedCommits.length > 0 ? clickedCommits : commits).flatMap(d => d.lines);
+$: selectedLines = (clickedCommits.length > 0 ? clickedCommits : filteredCommits).flatMap(d => d.lines);
 $: selectedCounts = d3.rollup(
     selectedLines,
     v => v.length,
@@ -134,9 +140,9 @@ $: commitMaxTime = timeScale.invert(commitProgress);
 <h2>Summary</h2>
 <dl class="stats">
 	<dt>Total <abbr title="Lines of code">LOC</abbr></dt>
-	<dd>{data.length}</dd>
+	<dd>{filteredLines.length}</dd>
   <dt>Total <abbr title="Commits">Commits</abbr></dt>
-  <dd>{commits.length}</dd>
+  <dd>{filteredCommits.length}</dd>
   <dt>Total <abbr title="Files">Files</abbr></dt>
 	<dd>{totalFiles}</dd>
 </dl>
