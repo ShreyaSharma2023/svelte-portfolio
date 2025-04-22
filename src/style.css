@@ -228,15 +228,6 @@ dl.info dd {
   margin: 0; /* Remove default margin */
 }
 
-circle {
-	transition: 200ms;
-	&:hover {
-		transform: scale(1.5);
-	}
-  transform-origin: center;
-  transform-box: fill-box;
-}
-
 :root {
   --tooltip-bg: rgba(255, 255, 255, 0.8);
   --tooltip-text: black;

@@ -202,9 +202,21 @@ $: commitMaxTime = timeScale.invert(commitProgress);
 </dl>
 
 <style>
-	svg {
-		overflow: visible;
-	}
+svg {
+	overflow: visible;
+}
+
+circle {
+transition: 200ms;
+&:hover {
+	transform: scale(1.5);
+}
+transform-origin: center;
+transform-box: fill-box;
+@starting-style {
+r: 0;
+}
+}
 </style>
 
 
