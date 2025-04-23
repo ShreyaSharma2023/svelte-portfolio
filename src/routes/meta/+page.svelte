@@ -8,6 +8,7 @@ import {
 	autoPlacement,
 	offset,
 } from '@floating-ui/dom';
+import FileLines from "$lib/FileLines.svelte";
 let width = 1000, height = 600;
 let margin = {top: 10, right: 10, bottom: 30, left: 20};
 let usableArea = {
@@ -138,9 +139,10 @@ $: commitMaxTime = timeScale.invert(commitProgress);
 
 <h1>Meta</h1>
 <h2>Summary</h2>
+<FileLines lines={filteredLines} width={width}/>
 <dl class="stats">
-	<dt>Total <abbr title="Lines of code">LOC</abbr></dt>
-	<dd>{filteredLines.length}</dd>
+  <dt>Total <abbr title="Lines of code">LOC</abbr></dt>
+  <dd>{filteredLines.length}</dd>
   <dt>Total <abbr title="Commits">Commits</abbr></dt>
   <dd>{filteredCommits.length}</dd>
   <dt>Total <abbr title="Files">Files</abbr></dt>
@@ -165,6 +167,7 @@ $: commitMaxTime = timeScale.invert(commitProgress);
 		})}
 	</time>
 </div>
+
 
 <svg viewBox="0 0 {width} {height}">
 <g class="dots">
