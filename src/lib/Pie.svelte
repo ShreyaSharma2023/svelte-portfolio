@@ -69,6 +69,24 @@ function toggleWedge(index, event) {
   
 </div>
 <p aria-live="polite" class="sr-only">{liveText}</p>
+<table aria-label="Table showing project counts by year" class="data-table">
+    <caption>Projects by Year</caption>
+    <thead>
+        <tr>
+          <th id="year-header" scope="col">Year</th>
+          <th id="projects-header" scope="col">Projects</th>
+        </tr>
+      </thead>      
+    <tbody>
+        {#each data as d, i}
+          <tr>
+            <th id="row-{i}" scope="row">{d.label}</th>
+            <td aria-labelledby="row-{i} projects-header">{d.value}</td>
+          </tr>
+        {/each}
+      </tbody>
+  </table>
+
 <style>
     svg {
 	max-width: 20em;
@@ -157,6 +175,31 @@ path:hover {
   width: 1px;
   height: 1px;
   overflow: hidden;
+}
+
+.data-table {
+  margin-top: 1rem;
+  margin-bottom: 1rem;
+  border-collapse: collapse;
+  width: 100%;
+  max-width: 30em;
+}
+
+.data-table caption {
+  font-weight: bold;
+  margin-bottom: 0.5em;
+  text-align: left;
+}
+
+.data-table th,
+.data-table td {
+  border: 1px solid #ccc;
+  padding: 0.5em;
+  text-align: left;
+}
+
+.data-table th {
+  background-color: #f0f0f0;
 }
 
 </style>
