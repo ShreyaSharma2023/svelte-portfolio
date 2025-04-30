@@ -50,8 +50,15 @@ $: filteredByYear = filteredProjects.filter(project => {
 
 <Pie data={pieData} bind:selectedIndex={selectedYearIndex} />
 
-<input type="search" bind:value={query}
-       aria-label="Search projects" placeholder="🔍 Search projects…" />
+<div class="search-wrapper">
+  <span aria-hidden="true" class="emoji">🔍</span>
+  <input 
+    type="search" 
+    bind:value={query}
+    aria-label="Search projects"
+    placeholder="Search projects…" />
+</div>
+
 <div class="projects">
     {#each filteredByYear as p}
         <Project data={p} />
@@ -74,6 +81,29 @@ $: filteredByYear = filteredProjects.filter(project => {
     justify-content: center;
     padding: 1rem;
   }
+
+      input[type="search"] {
+          width: 100%;
+          height: 1rem;
+          padding: 2rem;
+          font-size: 1em;
+          border: 1px solid #ccc;
+          border-radius: 4px;
+      }
+
+      .search-wrapper {
+  position: relative;
+}
+
+.emoji {
+  position: absolute;
+  left: 0.5rem;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  font-size: 1rem;
+}
+
 </style>
 
   
