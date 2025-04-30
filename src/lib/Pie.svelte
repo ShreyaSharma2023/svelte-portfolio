@@ -20,7 +20,11 @@ let arcs;
 		arcs = arcData.map(d => arcGenerator(d));
     }
 
-let colors = d3.scaleOrdinal(d3.schemeTableau10);
+$: colors = d3.scaleOrdinal()
+    .domain(data.map((_, i) => i))
+    .range(d3.quantize(d3.interpolateBlues, data.length));
+
+
 
 let liveText = "";
     let showChart = true;
@@ -62,6 +66,7 @@ function toggleWedge(index, event) {
   aria-labelledby="pie-title pie-desc">
   <title id="pie-title">Projects by Year</title>
       <desc id="pie-desc">{description}</desc>
+          <circle class="pie-outline" r="50" />
         {#each arcs as arc, index}
 	        <path 
           d={arc} 
@@ -218,6 +223,12 @@ path:hover {
 
 .data-table th {
   background-color: #f0f0f0;
+}
+
+.pie-outline {
+    stroke: black;
+    fill: none;
+    stroke-width: 1;
 }
 
 </style>
