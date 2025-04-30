@@ -26,7 +26,11 @@ function toggleWedge (index, event) {
 		selectedIndex = index;
 	}
 }
-
+    $: description = 
+      `A pie chart showing project counts by year. ${data.map(
+        d => `${d.label}: ${d.value} projects`
+      ).join(', ')}.`;
+      
 </script>
 <div class="container">
 <svg 
@@ -34,8 +38,7 @@ function toggleWedge (index, event) {
   role="img" 
   aria-labelledby="pie-title pie-desc">
   <title id="pie-title">Projects by Year</title>
-  <desc id="pie-desc">A pie chart showing the number of projects per year. 
-  Most projects are in 2024 and 2025.</desc>
+      <desc id="pie-desc">{description}</desc>
         {#each arcs as arc, index}
 	        <path 
           d={arc} 
