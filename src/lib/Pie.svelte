@@ -23,6 +23,12 @@ let arcs;
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
 
 let liveText = "";
+    let showChart = true;
+
+    function toggleView() {
+        showChart = !showChart;
+        liveText = showChart ? "Pie chart view shown." : "Table view shown.";
+    }
 
 function toggleWedge(index, event) {
 	if (!event.key || event.key === "Enter") {
@@ -40,6 +46,15 @@ function toggleWedge(index, event) {
 
 
 </script>
+<button 
+  on:click={toggleView}
+  aria-pressed={!showChart}
+  aria-label="Toggle between pie chart and table view"
+  class="toggle-button">
+    {showChart ? 'Show Table' : 'Show Chart'}
+</button>
+
+{#if showChart}
 <div class="container">
 <svg 
   viewBox="-50 -50 100 100" 
@@ -66,9 +81,10 @@ function toggleWedge(index, event) {
 		    </li>
 	    {/each}
 	</ul>
-  
+
 </div>
-<p aria-live="polite" class="sr-only">{liveText}</p>
+{:else}
+
 <table aria-label="Table showing project counts by year" class="data-table">
     <caption>Projects by Year</caption>
     <thead>
@@ -86,7 +102,9 @@ function toggleWedge(index, event) {
         {/each}
       </tbody>
   </table>
+{/if}
 
+<p aria-live="polite" class="sr-only">{liveText}</p>
 <style>
     svg {
 	max-width: 20em;
