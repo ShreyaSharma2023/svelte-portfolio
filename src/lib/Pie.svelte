@@ -29,14 +29,18 @@ function toggleWedge (index, event) {
 
 </script>
 <div class="container">
-    <svg viewBox="-50 -50 100 100">
+<svg 
+  viewBox="-50 -50 100 100" 
+  role="img" 
+  aria-labelledby="pie-title pie-desc">
+  <title id="pie-title">Projects by Year</title>
+  <desc id="pie-desc">A pie chart showing the number of projects per year. 
+  Most projects are in 2024 and 2025.</desc>
         {#each arcs as arc, index}
 	        <path 
           d={arc} 
           fill={ colors(index) }
           tabindex="0"
-          role="button"
-          aria-label={`${data[index].label}: ${data[index].value}`}
             class:selected={selectedIndex === index}
             on:click={e => toggleWedge(index, e)}
             on:keyup={e => toggleWedge(index, e)}/>
