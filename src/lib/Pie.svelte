@@ -21,16 +21,24 @@ let arcs;
     }
 
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
-function toggleWedge (index, event) {
+
+let liveText = "";
+
+function toggleWedge(index, event) {
 	if (!event.key || event.key === "Enter") {
 		selectedIndex = index;
+		const d = data[index];
+		liveText = `${d.label}: ${d.value} projects selected.`;
 	}
 }
+
     $: description = 
       `A pie chart showing project counts by year. ${data.map(
         d => `${d.label}: ${d.value} projects`
       ).join(', ')}.`;
       
+
+
 </script>
 <div class="container">
 <svg 
@@ -49,6 +57,7 @@ function toggleWedge (index, event) {
             on:keyup={e => toggleWedge(index, e)}/>
         {/each}
     </svg>
+    
 	<ul class="legend">
 		{#each data as d, index}
 		    <li style="--color: { colors(index) } " class:selected={selectedIndex === index}>
@@ -57,8 +66,9 @@ function toggleWedge (index, event) {
 		    </li>
 	    {/each}
 	</ul>
+  
 </div>
-
+<p aria-live="polite" class="sr-only">{liveText}</p>
 <style>
     svg {
 	max-width: 20em;
@@ -139,6 +149,14 @@ svg:has(.selected)
 path:not(.selected){opacity: 50%}
 path:hover {
 	opacity: 100% !important;
+}
+
+.sr-only {
+  position: absolute;
+  left: -9999px;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
 }
 
 </style>
