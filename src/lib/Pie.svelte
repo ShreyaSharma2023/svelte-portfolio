@@ -21,14 +21,25 @@ let arcs;
     }
 
 let colors = d3.scaleOrdinal(d3.schemeTableau10);
+function toggleWedge (index, event) {
+	if (!event.key || event.key === "Enter") {
+		selectedIndex = index;
+	}
+}
 
 </script>
 <div class="container">
     <svg viewBox="-50 -50 100 100">
         {#each arcs as arc, index}
-	        <path d={arc} fill={ colors(index) }
+	        <path 
+          d={arc} 
+          fill={ colors(index) }
+          tabindex="0"
+          role="button"
+          aria-label={`${data[index].label}: ${data[index].value}`}
             class:selected={selectedIndex === index}
-            on:click={e => selectedIndex = selectedIndex === index ? -1 : index}/>
+            on:click={e => toggleWedge(index, e)}
+            on:keyup={e => toggleWedge(index, e)}/>
         {/each}
     </svg>
 	<ul class="legend">
@@ -49,12 +60,20 @@ let colors = d3.scaleOrdinal(d3.schemeTableau10);
 	/* Do not clip shapes outside the viewBox */
 	overflow: visible;
 }
-svg:has(path:hover) path:not(:hover) {
-	opacity: 50%;
-}
+  svg:hover path:not(:hover),
+  svg:focus-visible path:not(:focus-visible) {
+    opacity: 50%;
+  }
+  path:hover,
+  path:focus-visible {
+    opacity: 100% !important;
+  }
+
+
 path {
 	transition: 300ms;
-    cursor: pointer;
+  cursor: pointer;
+  outline: none;
 }
 
 
